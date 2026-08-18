@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-bg text-ink font-body;
+}
+
+h1, h2, h3, h4 {
+  @apply font-heading;
+}
+
+.font-nums {
+  font-family: "JetBrains Mono", monospace;
+}

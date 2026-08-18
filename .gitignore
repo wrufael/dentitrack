@@ -1,0 +1,46 @@
+# Backend (Laravel)
+backend/.env
+backend/.env.backup
+backend/.env.production
+backend/vendor/
+backend/node_modules/
+backend/storage/*.key
+backend/storage/pail/
+backend/.phpunit.result.cache
+backend/.phpactor.json
+backend/auth.json
+backend/_ide_helper.php
+backend/public/hot
+backend/public/storage
+backend/public/build
+backend/Homestead.json
+backend/Homestead.yaml
+
+# Frontend (React/Node)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.vite/
+frontend/coverage/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+.nova/
+.zed/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Other
+*.key
+*.pem
