@@ -37,6 +37,11 @@ Route::post('/register-clinic', [
     'register'
 ]);
 
+Route::get('/register-clinic/{id}', [
+    RegistrationController::class,
+    'show'
+]);
+
 Route::post('/save-registration-draft', [
     RegistrationController::class,
     'saveDraft'
