@@ -94,6 +94,9 @@ export const AuthProvider = ({ children }) => {
     const [permissions, setPermissions] =
         useState([]);
 
+    const [accessibleModules, setAccessibleModules] =
+        useState([]);
+
     const [clinicStatus, setClinicStatus] =
         useState("active");
 
@@ -108,6 +111,7 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             setRole(null);
             setPermissions([]);
+            setAccessibleModules([]);
             setClinicStatus("active");
             setIsAuthenticated(false);
 
@@ -122,15 +126,16 @@ export const AuthProvider = ({ children }) => {
             userData.clinic_status || "active"
         );
 
-        // Staff created through Employee Management carry their
-        // own owner-granted permission list back from the server
-        // (it can differ from the role's defaults). Owner/admin
-        // accounts don't have a stored list, so fall back to the
-        // static table for those.
+        // Set permissions from backend (new permission system)
         setPermissions(
             userData.permissions && userData.permissions.length > 0
                 ? userData.permissions
                 : ROLE_PERMISSIONS[userData.role] || []
+        );
+
+        // Set accessible modules from backend
+        setAccessibleModules(
+            userData.accessible_modules || []
         );
 
         setIsAuthenticated(true);
@@ -588,6 +593,28 @@ export const AuthProvider = ({ children }) => {
 
 
     // ========================================================
+    // CHECK IF MODULE IS ACCESSIBLE
+    // ========================================================
+
+    const canAccessModule = (moduleKey) => {
+
+        if (!user) {
+            return false;
+        }
+
+        // Platform admin and owner have access to everything
+        if (user.role === "platform_admin" || user.role === "owner") {
+            return true;
+        }
+
+        // Check if module is in accessible modules list
+        return accessibleModules.some(
+            (module) => module.key === moduleKey
+        );
+    };
+
+
+    // ========================================================
     // CHECK PERMISSION
     // ========================================================
 
@@ -755,6 +782,7 @@ export const AuthProvider = ({ children }) => {
 
         // Permissions
         permissions,
+        accessibleModules,
 
         // Clinic
         clinicStatus,
@@ -775,6 +803,7 @@ export const AuthProvider = ({ children }) => {
         // Permission functions
         hasPermission,
         hasRole,
+        canAccessModule,
 
         // Display helpers
         getUserDisplayName,

@@ -105,6 +105,11 @@ class ModuleMapper
      */
     public static function getAccessibleModules($user): array
     {
+        // Platform admins and owners get all modules
+        if ($user->role === 'platform_admin' || $user->role === 'owner') {
+            return self::MODULES;
+        }
+
         $userPermissions = is_array($user->permissions) 
             ? $user->permissions 
             : json_decode($user->permissions, true) ?? [];
@@ -112,7 +117,7 @@ class ModuleMapper
         $accessibleModules = [];
 
         foreach (self::MODULES as $module) {
-            // Check role-based access
+            // Check role-based access first
             if (!empty($module['roles'])) {
                 if (!in_array($user->role, $module['roles'])) {
                     continue; // User doesn't have required role

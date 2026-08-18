@@ -88,7 +88,7 @@ class PermissionCatalog
             'Medical Records' => ['View Records', 'Update Patient Vitals'],
         ],
         'receptionist' => [
-            'Patients' => ['View Patients (basic info)'],
+            'Patients' => ['View Patients (basic info)', 'Create Patients'],
             'Appointments' => ['View Appointments', 'Create Appointments', 'Edit Appointments', 'Check-in / Check-out'],
         ],
         'lab_technician' => [
